@@ -8,7 +8,7 @@ http://creativecommons.org/licenses/by-nc/4.0/ or send a letter to
 Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 """
 
-import os
+# import os
 import argparse
 
 import torch
@@ -17,11 +17,7 @@ import numpy as np
 from torchvision import models
 from scipy import linalg
 from core.data_loader import get_eval_loader
-
-try:
-    from tqdm import tqdm
-except ImportError:
-    def tqdm(x): return x
+from tqdm import tqdm
 
 
 class InceptionV3(nn.Module):
@@ -55,7 +51,7 @@ class InceptionV3(nn.Module):
 
 def frechet_distance(mu, cov, mu2, cov2):
     cc, _ = linalg.sqrtm(np.dot(cov, cov2), disp=False)
-    dist = np.sum((mu -mu2)**2) + np.trace(cov + cov2 - 2*cc)
+    dist = np.sum((mu - mu2)**2) + np.trace(cov + cov2 - 2*cc)
     return np.real(dist)
 
 

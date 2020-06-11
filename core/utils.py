@@ -8,11 +8,11 @@ http://creativecommons.org/licenses/by-nc/4.0/ or send a letter to
 Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 """
 
-import os
+# import os
 from os.path import join as ospj
 import json
-import glob
-from shutil import copyfile
+# import glob
+# from shutil import copyfile
 
 from tqdm import tqdm
 import ffmpeg
@@ -20,7 +20,7 @@ import ffmpeg
 import numpy as np
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
+# import torch.nn.functional as F
 import torchvision
 import torchvision.utils as vutils
 
@@ -176,14 +176,14 @@ def interpolate(nets, args, x_src, s_prev, s_next):
 def slide(entries, margin=32):
     """Returns a sliding reference window.
     Args:
-        entries: a list containing two reference images, x_prev and x_next, 
+        entries: a list containing two reference images, x_prev and x_next,
                  both of which has a shape (1, 3, 256, 256)
     Returns:
         canvas: output slide of shape (num_frames, 3, 256*2, 256+margin)
     """
     _, C, H, W = entries[0].shape
     alphas = get_alphas()
-    T = len(alphas) # number of frames
+    T = len(alphas)  # number of frames
 
     canvas = - torch.ones((T, C, H*2, W + margin))
     merged = torch.cat(entries, dim=2)  # (1, 3, 512, 256)
@@ -262,7 +262,7 @@ def video_latent(nets, args, x_src, y_list, z_list, psi, fname):
 def save_video(fname, images, output_fps=30, vcodec='libx264', filters=''):
     assert isinstance(images, np.ndarray), "images should be np.array: NHWC"
     num_frames, height, width, channels = images.shape
-    stream = ffmpeg.input('pipe:', format='rawvideo', 
+    stream = ffmpeg.input('pipe:', format='rawvideo',
                           pix_fmt='rgb24', s='{}x{}'.format(width, height))
     stream = ffmpeg.filter(stream, 'setpts', '2*PTS')  # 2*PTS is for slower playback
     stream = ffmpeg.output(stream, fname, pix_fmt='yuv420p', vcodec=vcodec, r=output_fps)

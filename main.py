@@ -116,9 +116,9 @@ if __name__ == '__main__':
                         help='Number of total iterations')
     parser.add_argument('--resume_iter', type=int, default=0,
                         help='Iterations to resume training/testing')
-    parser.add_argument('--batch_size', type=int, default=8,
+    parser.add_argument('--batch_size', type=int, default=4,
                         help='Batch size for training')
-    parser.add_argument('--val_batch_size', type=int, default=32,
+    parser.add_argument('--val_batch_size', type=int, default=16,
                         help='Batch size for validation')
     parser.add_argument('--lr', type=float, default=1e-4,
                         help='Learning rate for D, E and G')
